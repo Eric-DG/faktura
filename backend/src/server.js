@@ -2,7 +2,7 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import 'dotenv/config';
-
+import seedRoutes from "./routes/seed.js";
 import { connectDB, sequelize } from './db.js';
 import termsRoutes from './routes/terms.js';
 import productsRoutes from './routes/products.js';
@@ -33,7 +33,7 @@ try {
 
   app.register(termsRoutes, { prefix: '/api' });
   app.register(productsRoutes, { prefix: '/api' });
-
+app.register(seedRoutes, { prefix: "/api" });
   const PORT = Number(process.env.PORT) || 8080;
   const HOST = '0.0.0.0';
 
