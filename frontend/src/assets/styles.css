@@ -1,0 +1,341 @@
+/* ===== Tokens & Base ===== */
+:root{
+  --blue:#1a73e8;
+  --border:#cfe4ff;
+  --text:#1f2937;
+  --bg:#fff;
+  --radius-pill:1.375rem; /* 22px */
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+html,body,#root{
+  height:100%; margin:0;
+  background:var(--bg); color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans";
+}
+
+/* Pills / inputs */
+.pill{
+  border:1px solid var(--border);
+  border-radius:var(--radius-pill);
+  padding:.625rem .75rem; 
+  outline:none; background:#fff; width:100%;
+}
+
+.desktop-only{ display:initial; }
+.mobile-only{ display:none; }
+
+/* ===== Top Blue Bar ===== */
+.bluebar{
+  height:3.25rem;      
+  background:var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 .875rem;             /* 14px */
+}
+
+.hamburger{
+  border:none; background:transparent; color:#fff;
+  font-size:1.375rem;   
+  cursor:pointer; line-height:1;
+}
+
+.lang{ display:flex; align-items:center; gap:.5rem; }
+.lang img{ height:1.125rem; cursor:pointer; } 
+
+/* Profile left */
+.blue-left{ display:flex; align-items:center; gap:.625rem; }
+.avatar-sm{
+  width:2.25rem; height:2.25rem;
+  border-radius:999px; background:#f59e0b;
+  display:grid; place-items:center;
+  box-shadow:0 .0625rem .125rem rgba(0,0,0,.15);
+}
+.avatar-person{ width:1.375rem; height:1.375rem; fill:#fff; stroke:#fff; stroke-width:.09375rem; } 
+.who{ line-height:1.1; }
+.name--white{ color:#fff; font-weight:700; }
+.org--white{ color:rgba(255,255,255,.9); font-size:.85rem; }
+
+/* ===== Layout Grid ===== */
+.layout{
+  display:grid; grid-template-columns:16.25rem 1fr;
+  min-height:calc(100vh - 3.25rem); 
+}
+
+/* SideNav */
+.sidenav{
+  position:sticky; top:0; height:100vh; overflow:auto;
+  background:#fff; box-shadow:.375rem 0 1.125rem -.75rem rgba(17,24,39,.18);
+  padding:1rem .75rem;
+  padding-top:0 ;
+}
+
+.menu-heading{
+  font-weight:700; color:#374151; margin:.375rem .375rem .625rem;
+  text-align:center; position:relative; padding:.25rem .375rem;
+}
+.menu-heading::after{
+  content:""; position:absolute; left:1.5rem; right:1.5rem; bottom:-.375rem;
+  height:.125rem; background:#e6f0ff;
+}
+
+.navlist{ display:flex; flex-direction:column; gap:.5rem; margin-top:.5rem; } 
+.navitem{
+  display:flex; align-items:center; gap:.625rem;
+  padding:.5rem .625rem;              
+  border-radius:.625rem;            
+  color:#334155; cursor:default;
+}
+.navitem .mi{ width:1.375rem; height:1.375rem; display:flex; align-items:center; justify-content:center; }
+.navitem .mi svg{ color:#60a5fa; }
+.navitem.active{ background:#f1f8ff; }
+.navitem.disabled{ opacity:.45; }
+
+.dot{ display:inline-block; width:.5rem; height:.5rem; border-radius:999px; margin-right:.5rem; background:#d1d5db; }
+.dot.green{ background:#34d399; }
+.dot.blue{ background:#60a5fa; }
+.dot.small{ width:.375rem; height:.375rem; margin-left:.375rem; margin-right:0; }
+
+/* ===== Main ===== */
+.main{ display:flex; flex-direction:column; }
+.content{ padding:.625rem; }
+
+.content-inner{ max-width:75rem; margin:0 auto; } 
+
+.toolbar{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:nowrap; gap:1rem; margin-bottom:.75rem;
+}
+
+.searches{ display:flex; flex-direction:column; gap:.625rem; } 
+.search{ position:relative; }
+.search input{
+  border:0; outline:none; width:15rem; padding-right:1.875rem; background:transparent; 
+}
+.search .glass{
+  position:absolute; right:.625rem; top:50%; transform:translateY(-50%); opacity:.7; 
+}
+
+.actions{ display:flex; gap:.75rem; white-space:nowrap; } 
+.action{
+  border:1px solid #e7f0ff; background:#fff; border-radius:var(--radius-pill);
+  padding:.625rem .875rem; cursor:pointer; box-shadow:0 .125rem .5rem rgba(17,24,39,.06);
+}
+.action:active{ transform:translateY(.0625rem); }
+
+/* ===== Price List Table ===== */
+.pl-table{
+  background:#fff; border-radius:.75rem;           
+  padding:.625rem;                              
+  overflow-x:auto; width:100%;
+}
+
+/* Desktop grid */
+.pl-header{
+  display:grid;
+  grid-template-columns:1.5rem 8.125rem 1.6fr 7.5rem 7.5rem 9.375rem 7.5rem 1.2fr 2rem;
+  gap:.625rem;                                  
+  font-weight:600; color:#4b5563;
+  padding:.375rem .25rem;                         
+  border-bottom:1px solid #eef2f7;
+}
+.pl-row{
+  display:grid;
+  grid-template-columns:1.5rem 8.125rem 1.6fr 7.5rem 7.5rem 9.375rem 7.5rem 1.2fr 2rem;
+  gap:.625rem; padding:.375rem .25rem;
+  align-items:center; border-bottom:1px solid #f3f4f6;
+}
+.row-caret{ color:#4b9fff; text-align:center; }
+.kebab{ border:none; background:transparent; font-size:1.375rem; color:#64748b; cursor:pointer; }
+
+
+.pill-article,.pill-inprice,.pill-unit,.pill-stock,.pill-desc{ display:block; }
+
+/* ===== Responsive ===== */
+
+/* Tablet (<=1023px) — remove horizontal scrolling by fluid fr columns */
+@media (max-width:63.9375rem){
+  .layout{ grid-template-columns:1fr; }
+  .sidenav{ display:none; }
+  .desktop-only{ display:none !important; }
+  .mobile-only{ display:inline-block !important; }
+  .col-description{ display:none !important; }
+  .toolbar{ flex-direction:column; align-items:flex-start; gap:1rem; grid-template-columns: 1fr;   }
+  .actions{ display:flex; flex-wrap:nowrap; width:100%; justify-content:space-around; }
+  .action{ display:inline-flex; align-items:center; justify-content:center; }
+
+  /* SINGLE grid for header + rows */
+  .pl-header,
+  .pl-row{
+    display:grid !important;
+    grid-template-columns:
+      8.125rem
+      minmax(10rem, 1.2fr)
+      minmax(7.5rem, 1fr)
+      minmax(7.5rem, 1fr)
+      minmax(8.5rem, 1fr)
+      2rem !important;
+    gap:.5rem;
+    padding:.35rem .25rem;
+    align-items:center;
+    border-bottom:1px solid #eef2f7;
+  }
+
+  /* hide columns not on tablet */
+  .col-inprice, .col-desc{ display:none !important; }
+
+  /* explicit placement for BOTH header and rows */
+  .pl-header .col-article, .pl-row .col-article{ grid-column:1 !important; }
+  .pl-header .col-product, .pl-row .col-product{ grid-column:2 !important; min-width:0; }
+  .pl-header .col-price,   .pl-row .col-price  { grid-column:3 !important; }
+  .pl-header .col-stock,   .pl-row .col-stock  { grid-column:4 !important; }
+  .pl-header .col-unit,    .pl-row .col-unit   { grid-column:5 !important; }
+  .pl-header .col-kebab,   .pl-row .col-kebab  { grid-column:6 !important; justify-self:end; width:2rem; }
+
+  .pl-row .pill{
+    width:100%;
+    padding:.4rem .6rem;
+    min-height:1.9rem;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .pl-header > span, .pl-row > *{ min-width:0; }
+}
+
+
+
+
+/* ===== PHONE (<= 768px) — Product | Price | Kebab ===== */
+@media (max-width:47.9375rem){
+
+.root, .layout{
+  width: 100% !important;
+}
+.toolbar{
+  width: 76%;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:nowrap; gap:.5rem; margin-bottom:.75rem;
+}
+
+.searches{ display:flex; flex-direction:column; gap:.625rem; } 
+.search{ position:relative; }
+.search input{
+  border:0; outline:none; width:15rem; padding-right:1.875rem; background:transparent; 
+}
+.search .glass{
+  position:absolute; right:.625rem; top:50%; transform:translateY(-50%); opacity:.7; 
+}
+
+.actions{ display:flex; gap:.75rem; white-space:nowrap; } 
+.action{
+  border:1px solid #e7f0ff; background:#fff; border-radius:var(--radius-pill);
+  padding:.625rem .875rem; cursor:pointer; box-shadow:0 .125rem .5rem rgba(17,24,39,.06);
+}
+.action:active{ transform:translateY(.0625rem); }
+
+  /* 3 equal rows everywhere */
+  .pl-row{
+    display:grid !important;
+    grid-template-columns: 1fr 6.25rem 1.75rem; /* product | price | kebab */
+    gap:.5rem;
+    padding:.35rem .25rem;
+    align-items:center;
+    border-bottom:1px solid #f3f4f6;
+  }
+
+  /* hide ALL non-phone columns */
+  .col-caret,
+  .col-article,
+  .col-inprice,
+  .col-stock,
+  .col-unit,
+  .col-desc,
+  /* .pill-article, */
+  .pill-inprice,
+  .pill-stock,
+  /* .pill-unit, */
+  .pill-desc{ display:none !important; }
+
+  /* explicit placement of the 3 visible cells */
+  .col-product{ grid-column:1 !important; min-width:0; }
+  .col-price  { grid-column:2 !important; min-width:0; }
+  .col-kebab  { grid-column:3 !important; justify-self:end; width:1.75rem; }
+
+  /* keep long text from blowing up the grid */
+  .pl-row > *{ min-width:0; }
+  .pl-row .pill{
+    width:100%;
+    padding:.45rem .6rem;
+    min-height:1.9rem;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  .bluebar{
+    width: 100% !important;
+    height: 2.5rem;                                /* smaller bar */
+  }
+  .hamburger{ font-size: 1.25rem; line-height: 1; } /* slightly smaller icon */
+  .lang{ gap: .375rem; }
+  .lang .lang-text{ font-size: .95rem; }            /* optional: trim label size */
+  .lang img{ height: 1rem; }                         /* smaller flag */
+
+  
+}
+
+/* EXTRA-tight portrait phones (<= 480px) */
+@media (max-width: 30rem){ /* <= 480px */
+.layout{
+  width: 100% !important;
+}
+ .toolbar{
+    padding: .5rem .625rem 0;
+    gap:.75rem;
+  }
+  .bluebar{
+    height: 2.5rem;                                /* smaller bar */
+    padding-left: max(.625rem, env(safe-area-inset-left));
+    padding-right: max(.625rem, env(safe-area-inset-right));
+  }
+  .hamburger{ font-size: 1.25rem; line-height: 1; } /* slightly smaller icon */
+  .lang{ gap: .375rem; }
+  .lang .lang-text{ font-size: .95rem; }            /* optional: trim label size */
+  .lang img{ height: 1rem; }                         /* smaller flag */
+}
+
+/* kill the buffer (padding) on phones; keep it on larger screens */
+.bluebar{
+  width:100%;
+  max-width:100vw;
+  flex:0 0 auto;
+  position:sticky;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  padding-inline: 0;            /* remove the buffer */
+}
+
+/* restore the original horizontal padding from tablet up */
+@media (min-width: 48rem){       /* 768px */
+  .bluebar{ padding-inline: .875rem; }
+}
+
+/* align with notches/safe areas (iOS) without creating a gap elsewhere */
+:root{
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+.bluebar{
+  padding-left: max(0px, var(--safe-l));
+  padding-right: max(0px, var(--safe-r));
+}
+
+/* make sure nothing forces horizontal scroll which visually “shrinks” the bar */
+html, body, #root{ width:100%; overflow-x:hidden; }
+
+
+/* phone sizing for the bar: small height but full width */
+@media (max-width: 47.9375rem){
+  .bluebar{ height: 3rem; padding-inline: .75rem; }
+  .lang{ margin-left: auto; }   /* keeps language block pinned right */
+}
