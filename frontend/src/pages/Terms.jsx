@@ -1,7 +1,6 @@
-// src/pages/Terms.jsx
 import { useEffect, useRef, useState } from "react";
 
-// helper to make safe, stable anchor ids from headings (for TOC)
+// Helper to make safe anchor IDs from headings (for TOC)
 function slugify(text = "") {
   return text
     .toLowerCase()
@@ -43,36 +42,58 @@ const TERMS = {
       <p>Ha en trevlig dag!</p>
     `,
   },
-  en: {
+   en: {
     title: "Terms & Conditions",
     body: `
-      <p>English version coming soon.</p>
+      <p><strong>BY CLICKING</strong> "Invoice Now", you agree to register based on the information you've entered...</p>
+      <p>You may use the program for FREE for 14 days.</p>
+      <p>123 Fakturera is so easy and self-explanatory that the need for support is minimal. However, if you do need help, our support is available most of the day. After the trial, your subscription continues at SEK 99/month (excl. VAT), billed annually. If you don’t want to keep the program, just cancel within 14 days.</p>
+      <p>You can terminate use at no cost by notifying us by email within 14 days of registration.</p>
+      <p>If we do not receive such notice within 14 days, the order cannot be changed. "Registration" means the time/date you clicked "Invoice Now".</p>
+      <p>Invoicing is done annually. The price (SEK 99/month promo or SEK 159/month regular) is for one year of use.</p>
+      <p>Prices are excl. VAT. Optional modules (e.g. Quotation, Inventory, Multi-user, English printouts) may be added later.</p>
+      <p>Billing may be handled by K-Soft Sverige AB, Box 2826, 187 28 Täby. We may work with other companies in the future, but your customer relationship is with us.</p>
+      <p>Renewal is automatic unless you cancel 30 days before the next yearly term begins.</p>
+      <p>The introductory price is for the first year. After that, current regular prices apply (e.g. SEK 159 for Start, 300 for Remote, 333 for Pro). Remote becomes default after 1 year, unless you notify us otherwise.</p>
+      <p>If you keep the program (i.e. do not cancel within 14 days), you agree to pay the invoice. Non-payment or late payment does not cancel the order.</p>
+      <p>License is sold under applicable law. To support you and comply with the law, we need to store your data.</p>
+      <p>If you register as a private individual, you are entitled to statutory withdrawal rights.</p>
+      <p>Your data is stored to help you, for accounting compliance, etc. We may contact you via email, mail, or phone. You can opt out anytime by contacting us.</p>
+      <p>You have the right to access, correct, or delete your data. You can also request processing restrictions, object to processing, and request data portability. You also have the right to file a complaint with authorities.</p>
+      <p>Irish law applies. Orders are voluntary. We do not use automated decision-making or profiling.</p>
+      <p>To contact us, use the information on this website.</p>
+      <p>Click "Invoice Now" to register according to your entered information and the terms here.</p>
+      <p>We hope you'll be as satisfied as our other customers. Have a great day!</p>
     `,
   },
 };
 
 export default function Terms() {
-  const [lang, setLang] = useState("sv");       // default to Swedish to match screenshot
-  const [open, setOpen] = useState(false);      // drawer state
-  const [toc, setToc] = useState([]);           // [{id,text,level}]
+  const [lang, setLang] = useState("sv");
+  const [open, setOpen] = useState(false);
+  const [toc, setToc] = useState([]);
   const bodyRef = useRef(null);
 
-  // build table of contents after HTML is set/updated
   useEffect(() => {
     const root = bodyRef.current;
     if (!root) return;
     const headings = Array.from(root.querySelectorAll("h2, h3"));
     const items = headings.map((el) => {
       if (!el.id) el.id = slugify(el.textContent || "");
-      return { id: el.id, text: el.textContent || "", level: el.tagName.toLowerCase() };
+      return {
+        id: el.id,
+        text: el.textContent || "",
+        level: el.tagName.toLowerCase(),
+      };
     });
     setToc(items);
   }, [lang]);
 
-  // prevent body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   const goTo = (id) => {
@@ -86,120 +107,154 @@ export default function Terms() {
       className="terms-shell"
       style={{
         backgroundImage:
-          "url(https://storage.123fakturera.se/public/wallpapers/sverige43.jpg)",
+          "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(https://storage.123fakturera.se/public/wallpapers/sverige43.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        color: "#fff",
       }}
     >
-      {/* Top bar */}
-      <header className="topbar">
-        <div className="brand">
-          <img
-            src="https://storage.123fakturera.se/public/icons/diamond.png"
-            alt="123Fakturera"
-          />
-          <span>123Fakturera</span>
-        </div>
+      {/* Top Bar */}
+     <header
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "24px 48px",    
+    background: "transparent",
+    fontSize: "1.5rem",             
+    fontWeight: 600,
+    color: "#fff",
+    minHeight: "80px",          
+  }}
+>
 
-        {/* Language switcher */}
-        <div className="flags">
-          <img
-            onClick={() => setLang("sv")}
-            src="https://storage.123fakturere.no/public/flags/SE.png"
-            alt="Svenska"
-            title="Svenska"
-            role="button"
-            tabIndex={0}
-          />
-          <img
-            onClick={() => setLang("en")}
-            src="https://storage.123fakturere.no/public/flags/GB.png"
-            alt="English"
-            title="English"
-            role="button"
-            tabIndex={0}
-          />
-        </div>
-      </header>
+  {/* Left - Logo */}
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <img
+      src="https://storage.123fakturera.se/public/icons/diamond.png"
+      alt="123Fakturera"
+      style={{ height: "2rem", width: "auto" }}
+    />
+  </div>
 
-      {/* Hamburger to open drawer */}
-      <button
-        className="hamburger-btn"
-        aria-label="Open menu"
-        aria-controls="terms-drawer"
-        aria-expanded={open}
-        onClick={() => setOpen(true)}
-      >
-        ☰
-      </button>
+  {/* Center - Navigation Links */}
+  <nav
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      gap: "32px",
+      flexGrow: 1,
+    }}
+  >
+    <a href="/" style={{ color: "#fff", textDecoration: "none" }}>Hem</a>
+    <a href="/order" style={{ color: "#fff", textDecoration: "none" }}>Beställ</a>
+    <a href="/customers" style={{ color: "#fff", textDecoration: "none" }}>Våra Kunder</a>
+    <a href="/about" style={{ color: "#fff", textDecoration: "none" }}>Om oss</a>
+    <a href="/contact" style={{ color: "#fff", textDecoration: "none" }}>Kontakta oss</a>
+  </nav>
 
-      {/* Drawer + Backdrop */}
-      <aside
-        id="terms-drawer"
-        className={`drawer ${open ? "open" : ""}`}
-        aria-hidden={!open}
-      >
-        <div className="drawer-panel">
-          <div className="drawer-header">
-            <span>Menu</span>
-            <button
-              className="drawer-close"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-            >
-              ✕
-            </button>
-          </div>
+  {/* Right - Language Dropdown with Flag */}
+  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+    <span>{lang === "sv" ? "Svenska" : "English"}</span>
+    <select
+      value={lang}
+      onChange={(e) => setLang(e.target.value)}
+      style={{
+        border: "none",
+        backgroundColor: "transparent",
+        color: "#fff",
+        fontSize: "14px",
+        fontWeight: 500,
+        cursor: "pointer",
+      }}
+    >
+      <option value="sv">🇸🇪</option>
+      <option value="en">🇬🇧</option>
+    </select>
+  </div>
+</header>
 
-          <nav className="drawer-nav">
-            {toc.length === 0 ? (
-              <button onClick={() => setOpen(false)} className="drawer-link">
-                Close
-              </button>
-            ) : (
-              toc.map((h) => (
-                <button
-                  key={h.id}
-                  className={`drawer-link ${h.level === "h3" ? "lvl-2" : ""}`}
-                  onClick={() => goTo(h.id)}
-                >
-                  {h.text}
-                </button>
-              ))
-            )}
-          </nav>
-        </div>
-      </aside>
+
+
+
+
+
+      {/* Backdrop */}
       <div
         className={`backdrop ${open ? "show" : ""}`}
         onClick={() => setOpen(false)}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          height: "100vh",
+          width: "100vw",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display: open ? "block" : "none",
+          zIndex: 1000,
+        }}
       />
 
-      {/* Content card */}
-      <main className="terms">
-        <h1>{TERMS[lang].title}</h1>
+      {/* Terms Content */}
+     {/* Page Title and Button Section */}
+<div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "40px" }}>
+  <h1 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "20px", color: "#fff" }}>
+    {TERMS[lang].title}
+  </h1>
+  <button
+    onClick={() => window.history.back()}
+    style={{
+      background: "#22c55e",
+      color: "#fff",
+      fontWeight: 600,
+      fontSize: "1rem",
+      padding: "12px 24px",
+      border: "none",
+      borderRadius: "9999px",
+      cursor: "pointer",
+      boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+      minWidth: "220px",
+      textAlign: "center",
+    }}
+  >
+    {lang === "sv" ? "Stäng och gå tillbaka" : "Close and go back"}
+  </button>
+</div>
 
-        {/* Green CTA like the live page */}
-        <div style={{ display: "flex", justifyContent: "center", margin: "16px 0 8px" }}>
-          <button
-            className="pill"
-            onClick={() => window.history.back()}
-            style={{
-              background: "#22c55e",
-              color: "#fff",
-              fontWeight: 700,
-              padding: "12px 18px",
-              borderColor: "#16a34a",
-            }}
-          >
-            {lang === "sv" ? "Stäng och gå tillbaka" : "Close and go back"}
-          </button>
-        </div>
+      <main className="terms" style={{ maxWidth: "800px", margin: "auto", padding: "32px", backgroundColor: "rgba(255,255,255,0.95)", color: "#000", borderRadius: "8px", marginTop: "40px" }}>
+        
+
 
         <div
           ref={bodyRef}
           className="terms-body"
           dangerouslySetInnerHTML={{ __html: TERMS[lang].body }}
+          style={{ lineHeight: 1.6 }}
         />
       </main>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "40px" }}>
+
+  <button
+    onClick={() => window.history.back()}
+    style={{
+      background: "#22c55e",
+      color: "#fff",
+      fontWeight: 600,
+      fontSize: "1rem",
+      padding: "12px 24px",
+      border: "none",
+      borderRadius: "9999px",
+      cursor: "pointer",
+      boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+      minWidth: "220px",
+      textAlign: "center",
+      marginBottom: "40px",
+    }}
+  >
+    {lang === "sv" ? "Stäng och gå tillbaka" : "Close and go back"}
+  </button>
+</div>
     </div>
   );
 }
